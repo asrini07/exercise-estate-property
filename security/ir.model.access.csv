@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_estate_property_base,estate_property_base,model_estate_property,base.group_user,1,0,0,0
+access_estate_property_admin,estate_property_admin,model_estate_property,estate.group_estate_admin,1,1,1,1
+access_estate_property_type_admin,estate_property_type_admin,model_estate_property_type,estate.group_estate_admin,1,1,1,1
+access_estate_property_offer,estate_property_offer_admin,model_estate_property_offer,estate.group_estate_admin,1,1,1,1
+access_estate_property_tag,estate_property_tag_admin,model_estate_property_tag,estate.group_estate_admin,1,1,1,1

@@ -1,0 +1,10 @@
+<odoo>
+  <data>
+    <record id="group_estate_admin" model="res.groups">
+      <field name="name">Estate Admin</field>
+    </record>
+    <record id="group_estate_staff" model="res.groups">
+      <field name="name">Estate Staff</field>
+    </record>
+  </data>
+</odoo>

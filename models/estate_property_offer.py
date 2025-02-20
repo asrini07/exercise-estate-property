@@ -6,6 +6,10 @@ class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'model estate property offer'
     _rec_name = "property_id"
+    #ke generate ke table tapi kalau make api constrain tidak makanya disarankan make api constrain
+    # _sql_constraints = [
+    #     ('check_offer_price', 'CHECK(price > 0)', 'Expected price must be strictly positive!')
+    # ]
 
     price = fields.Float()
     status = fields.Selection([
@@ -48,9 +52,16 @@ class EstatePropertyOffer(models.Model):
             raise UserError(_("Text error"))
         self.status = "accepted"
         self.property_id.selling_price = self.price
+        self.property_id.partner_id = self.partner_id.id
 
     def action_refuse(self):
         self.ensure_one()
         self.status = "refused"
+
+    @api.constrains("price")
+    def _check_constraints(self):
+        for offer in self:
+            if offer.price < 1000:
+                raise ValidationError(_("Offering Price can not be lower than  1.000"))
 
     

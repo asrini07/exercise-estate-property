@@ -83,9 +83,11 @@
                             </page>
                             <page string="Offers">
                                 <field name="offer_ids">
-                                    <tree editable="bottom">
+                                    <tree editable="bottom" decoration-danger="status == 'refused'" decoration-success="status == 'accepted'"> 
                                         <field name="price"/>
                                         <field name="partner_id"/>
+                                        <button name="action_accept" invisible="status in('accepted', 'refused')" type="object" icon="fa-check" title="Accept Offer"/>
+                                        <button name="action_refuse" invisible="status in('accepted', 'refused')" type="object" icon="fa-times" title="Refuse Offer"/>
                                         <field name="status"/>
                                         <field name="property_type_id"/>
                                     </tree>

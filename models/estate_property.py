@@ -4,6 +4,10 @@ from odoo.exceptions import ValidationError
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'model estate property'
+    
+    _sql_constraints = [
+       ('check_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be strictly positive!') 
+    ]
 
     def _default_date(self):
         return fields.Date.today()
@@ -77,3 +81,17 @@ class EstateProperty(models.Model):
                 #     }
                 # }
                 raise ValidationError(_("Date availability set in the past"))
+
+    # @api.constrains("selling_price")
+    # def _check_constraints(self):
+    #     for estate in self:
+    #         if estate.selling_price < 1000000:
+    #             raise ValidationError(_("Selling price can not be lower than  1.000.000"))
+
+    @api.constrains("selling_price", "expected_price")
+    def _check_selling_price(self):
+        for rec in self:
+            if rec.selling_price > 0 and rec.selling_price < (rec.expected_price * 0.9):
+                raise ValidationError(_("Selling price cannot be lower than 90% of the expected price!"))
+
+    

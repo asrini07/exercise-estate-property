@@ -6,11 +6,15 @@
         <!-- menu categories -->
         <menuitem name="Estate Property" id="estate_property" parent="estate.estate_property_root" />
         <menuitem name="Setting" id="setting_estate_property" parent="estate.estate_property_root" />
+        <menuitem name="Advertisement" id="advertisement_estate_property" parent="estate.estate_property_root" />
 
         <!-- actions -->
         <menuitem name="List" id="estate_property_list" parent="estate.estate_property" action="estate.estate_property_action" />
+        
         <menuitem name="Property Type" id="estate_property_type_list" parent="estate.setting_estate_property" action="estate.estate_property_type_action" />
         <menuitem name="Property Tag" id="estate_property_tag_list" parent="estate.setting_estate_property" action="estate.estate_property_tag_action" />
+
+        <menuitem name="Property Offers" id="estate_property_offer_list" parent="estate.advertisement_estate_property" action="estate.estate_property_offer_action" />
 
     <!-- <menuitem name="estate" id="estate_property_root">
         <menuitem name="Estate" id="second_level">

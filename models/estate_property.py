@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
@@ -55,3 +56,24 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for rec in self:
             rec.best_price = max(rec.offer_ids.mapped('price') or [0])
+
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        # if not self.garden:
+        #     self.garden_area = 0
+        #     self.garden_orientation = false
+        for rec in self:
+            if not rec.garden:
+                rec.garden_area =0
+
+    @api.onchange('date_availability')
+    def _onchange_date_availability(self):
+        for estate in self:
+            if estate.date_availability and estate.date_availability < fields.Date.today():
+                # return {
+                #     "warning": {
+                #         "title": _("Warning"),
+                #         "message": _("My message")
+                #     }
+                # }
+                raise ValidationError(_("Date availability set in the past"))

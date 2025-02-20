@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+<!--        <record model="ir.ui.view" id="estate_property_search_view" >-->
+<!--            <field name="name">Estate Property Search</field>-->
+<!--            <field name="model">estate.property</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Estate">-->
+<!--                    <field name="name" />-->
+<!--                    <field name="postcode" />-->
+<!--                    <field name="expected_price" />-->
+<!--                    <field name="bedrooms" />-->
+<!--                    <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>-->
+<!--                    <field name="facades" />-->
+<!--                    <filter name="available" string="Available" domain="[('state', 'in', ['new', 'offer_received'])]" />-->
+<!--                    <group>-->
+<!--                        <filter name="group_by_postcode" context="{'group_by': 'postcode'}" />-->
+<!--                    </group>-->
+
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record model="ir.ui.view" id="estate_property_offer_tree_view" >
+            <field name="name">Estate Property Offer Tree</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <tree string="Estate Properties offer" decoration-danger="status == 'refused'" decoration-success="status == 'accepted'">
+                    <field name="property_id"/>
+                    <field name="partner_id"/>
+                    <field name="price"/>
+                    <field name="property_type_id"/>
+                    <field name="validity" />
+                    <field name="date_deadline" />
+                    <button name="action_accept" invisible="status in('accepted', 'refused')" type="object" icon="fa-check" title="Accept Offer"/>
+                    <button name="action_refuse" invisible="status in('accepted', 'refused')" type="object" icon="fa-times" title="Refuse Offer"/>
+                    <!-- <button icon="fa-check" type="object" invisible="status in('accepted', 'refused')" name="action_accept" class="oe_highlight"/>
+                    <button icon="fa-cancel" type="object" invisible="status in('accepted', 'refused')" name="action_cancel" class="btn-danger"/> -->
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- <record model="ir.ui.view" id="estate_property_offer_form_view" >
+            <field name="name">Estate Property Form</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="validity" />
+                            <field name="date_deadline" />
+                            <field name="status"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record> -->
+
+        <record model="ir.actions.act_window" id="estate_property_offer_action" >
+            <field name="name">Estate Property Offer</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -6,6 +6,7 @@ class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'model estate property offer'
     _rec_name = "property_id"
+    _order = "price desc"
     #ke generate ke table tapi kalau make api constrain tidak makanya disarankan make api constrain
     # _sql_constraints = [
     #     ('check_offer_price', 'CHECK(price > 0)', 'Expected price must be strictly positive!')

@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'model estate property'
+    _order = "id desc"
     
     _sql_constraints = [
        ('check_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be strictly positive!') 
@@ -94,4 +95,11 @@ class EstateProperty(models.Model):
             if rec.selling_price > 0 and rec.selling_price < (rec.expected_price * 0.9):
                 raise ValidationError(_("Selling price cannot be lower than 90% of the expected price!"))
 
+    def action_sold(self):
+        if "sold" in self.state:
+            raise UserError(_("Already accepted by partner"))
+        self.state = "sold"
+
+    def action_cancel(self):
+        self.state = "canceled"
     

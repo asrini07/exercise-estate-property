@@ -112,6 +112,11 @@
                                     <field name="salesperson_id"/>
                                 </group>
                             </page>
+                            <page string="Message">
+                                <div class="oe_chatter"> 
+                                    <field name="message_ids" widget="mail_thread"/>
+                                </div>
+                            </page>     
                         </notebook>
 
                     </sheet>

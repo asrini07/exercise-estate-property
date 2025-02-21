@@ -5,7 +5,7 @@ class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'model estate property'
     _order = "id desc"
-    
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _sql_constraints = [
        ('check_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be strictly positive!') 
     ]
@@ -43,14 +43,21 @@ class EstateProperty(models.Model):
         required=True,
         copy=False,
         default="new",
+        tracking=True 
     )
     property_type_id=fields.Many2one("estate.property.type", string="Property Type")
     buyer_id = fields.Many2one("res.partner", string="Buyer")
-    salesperson_id = fields.Many2one("res.users", string="Sales Person")
+    salesperson_id = fields.Many2one("res.users", string="Sales Person") # default=lambda self: self.env.user  # Default ke pengguna yang sedang login)
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offer")
     tag_ids = fields.Many2many("estate.property.tag", string="Tag")
     total_area = fields.Integer('Total Area', compute="_compute_total_area")
     best_price = fields.Float('Best Price', compute='_compute_best_price')
+    message_ids = fields.One2many('mail.message', 'res_id',  
+                                  string="Messages",
+                                  domain=lambda self: [('model', '=', self._name)])
+
+    message_follower_ids = fields.One2many('mail.followers', 'res_id', string="Followers")
+
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

@@ -27,6 +27,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" string="Title"/>
+                    <field name="color" string="Color"/>
                 </tree>
             </field>
         </record>
@@ -40,6 +41,7 @@
                     <sheet>
                         <group>
                             <field name="name" />
+                            <field name="color" />
                         </group>
                     </sheet>
                 </form>
